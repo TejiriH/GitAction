@@ -28,6 +28,19 @@ jobs:
       - name: Build project
         run: npm run build --if-present
 
+      - name: Save npm debug log
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: npm-debug-log
+          path: /home/runner/.npm/_logs/*.log
+      
+      - name: Print npm debug output
+        run: cat /home/runner/.npm/_logs/*.log
+
+          
+
+
       - name: Run tests
         run: npm test
 

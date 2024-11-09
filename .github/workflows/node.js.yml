@@ -53,7 +53,14 @@ jobs:
         run: mkdir -p ~/.ssh
         
       - name: Add SSH key
-        run: echo "${{ secrets.EC2_KEY }}" > ~/.ssh/id_rsa
+        run: |
+          echo "${{ secrets.EC2_KEY }}" > ~/.ssh/id_rsa
+          
+      - name: Set SSH Configurations
+        run: |
+          echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+
+          
       - name: Set permissions for the SSH key
         run: chmod 600 ~/.ssh/id_rsa
       - name: Deploy to AWS EC2

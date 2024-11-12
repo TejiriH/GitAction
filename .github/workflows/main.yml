@@ -36,7 +36,7 @@ jobs:
       # 'npm install' installs the dependencies defined in your project's 'package.json' file
 
     - name: Build
-      run: npm run build
+      run: npm run build --if-present
       # 'npm run build' runs the build script defined in my 'package.json'. This is used to for compiling or preparing my code for deployment.
 
     - name: Run tests

@@ -40,7 +40,7 @@ jobs:
       # 'npm run build' runs the build script defined in my 'package.json'. This is used to for compiling or preparing my code for deployment.
 
     - name: Run tests
-      run: npx jests
+      run: npx jest
       # 'npm test' runs the test script defined in your 'package.json'. Its crucial for ensuring that my code works as expected before deployment.
 
       

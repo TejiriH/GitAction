@@ -1,0 +1,49 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}  # This is the name of the next step
+      uses: actions/setup-node@v1  # This is the action for setting up Node.js
+      with:
+        node-version: ${{ matrix.node-version }}  # This specifies the Node.js version to use
+
+        # Cache Node Modules Step
+    - name: Cache Node Modules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm  # Path where npm caches modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+        
+    - name: Install dependencies
+      run: npm install
+      # 'npm install' installs the dependencies defined in your project's 'package.json' file
+    - name: Fix permissions on node_modules/.bin
+      run: sudo chmod -R 777 node_modules/.bin
+
+
+    - name: Build
+      run: npm run build --if-present
+      # 'npm run build' runs the build script defined in my 'package.json'. This is used to for compiling or preparing my code for deployment.
+
+    - name: Run tests
+      run: npx jest
+      # 'npm test' runs the test script defined in your 'package.json'. Its crucial for ensuring that my code works as expected before deployment.
+
+      

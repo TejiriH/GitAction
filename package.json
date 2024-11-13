@@ -1,6 +1,7 @@
 {
   "name": "gitaction",
   "version": "1.0.0",
+  "type": "module",
   "description": "Practice on gitaction",
   "main": "index.js",
   "scripts": {

@@ -37,6 +37,8 @@ jobs:
     - name: Fix permissions on node_modules/.bin
       run: sudo chmod -R 777 node_modules/.bin
 
+    - name: Run ESLint
+      run: npx eslint .
 
     - name: Build
       run: npm run build --if-present
